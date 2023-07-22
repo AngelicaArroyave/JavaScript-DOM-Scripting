@@ -45,3 +45,32 @@ navigation.appendChild(newLink)
 
 //     elemento.appendChild(nuevoElemento);
 // });
+
+// Eventos
+console.log(1);
+
+// Load espera que el JavaScript y los archivos que dependen del HTML estén listos
+// window.addEventListener('load', function() { // FORMA 1
+//     console.log(2);
+// })
+
+window.addEventListener('load', print) // FORMA 2
+
+window.onload = function() { // Es lo mismo que el addEventListener('load')
+    console.log(3);
+}
+
+// Con DOMContentLoaded solo espera al HTML, pero no espera el CSS o imágenes
+document.addEventListener('DOMContentLoaded', function() {
+    console.log(4);
+})
+
+console.log(5);
+
+function print() {
+    console.log(2);
+}
+
+window.onscroll = function() {
+    console.log('Scrolling...');
+}
