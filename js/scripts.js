@@ -71,6 +71,75 @@ function print() {
     console.log(2);
 }
 
-window.onscroll = function() {
+window.onscroll = function(event) {
     console.log('Scrolling...');
+    // console.log(event);
+}
+
+// Seleccionar eventos y asociarles un evento
+// const btnSend = document.querySelector('.boton--primario')
+// btnSend.addEventListener('click', function(event) {
+//     console.log(event);
+//     console.log(event.target);
+//     event.preventDefault() // Sirve para validar un formulario
+//     console.log('Enviando formulario...');
+// })
+
+// Eventos de los inputs y textarea
+const data = {
+    nombre: '',
+    email: '',
+    mensaje: ''
+}
+
+const name = document.querySelector('#nombre')
+const email = document.querySelector('#email')
+const message = document.querySelector('#mensaje')
+const form = document.querySelector('.formulario')
+
+// name.addEventListener('change', function() { // Se captura información después de salir del campo
+//     console.log('Escribiendo...');
+// })
+
+// name.addEventListener('input', function(event) { // Captura la información del campo en tiempo real
+//     // console.log('Escribiendo...');
+//     console.log(event.target.value);
+// })
+
+name.addEventListener('input', readText)
+email.addEventListener('input', readText)
+message.addEventListener('input', readText)
+
+// Evento Submit
+form.addEventListener('submit', function(event) {
+    event.preventDefault()
+    // Validar formulario
+    const { nombre, email, mensaje } = data
+    
+    if(nombre === '' || email === '' || mensaje === '') {
+        showMessage('Todos los campos son obligatorios', 'error')
+        return
+    }
+    // Crear la alerta de enviar correctamente
+    showMessage('Mensaje enviado correctamente', 'correcto')
+})
+
+function readText(event) {
+    // console.log(event.target.value);
+    
+    // El nombre de los id deben ser los mismos que hay en data
+    data[event.target.id] = event.target.value
+
+    console.log(data);
+}
+
+// Mostrar un mensaje en pantalla exitoso o de error
+function showMessage(message, className) {
+    const show = document.createElement('p')
+    show.textContent = message
+    show.classList.add(className)
+    form.appendChild(show)
+
+    // Mensaje desaparece después de 5 segundos
+    setTimeout(() => { show.remove() }, 5000)
 }
